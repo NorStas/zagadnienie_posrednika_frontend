@@ -33,13 +33,13 @@ class App extends React.Component {
                     }
                 </Navbar>
                 </div>
-                <div style={{display: 'flex', flexDirection:'row'}}>
-                <div style={{display: 'flex', flexDirection: 'row', width: '50%', height:'100%', paddingLeft:'20px'}}>
+                <div style={{display: 'flex', flexDirection:'row', height: '100%'}}>
+                <div style={{display: 'flex', flexDirection: 'row', width: '100%', height:'100%', paddingLeft:'20px'}}>
                     <SupplyAndDemandInput style={{display: 'flex',
                         flexDirection:'row', float:'left', width:'50%'}}
                                           onClick={() => this.isSupplyEqualToDemand()}/>
                 </div>
-                    <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'black', width: '100%'}}>
                         <GraphComponent/>
                     </div>
                 </div>
