@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar} from "react-bootstrap";
 import CustomAlert from "./custom-components/CustomAlert";
 import SupplyAndDemandInput from "./custom-components/SupplyAndDemandInput";
+import GraphComponent from "./custom-components/GraphComponent";
 
 class App extends React.Component {
 
@@ -32,10 +33,15 @@ class App extends React.Component {
                     }
                 </Navbar>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', width: '50%', marginLeft:'20px'}}>
+                <div style={{display: 'flex', flexDirection:'row'}}>
+                <div style={{display: 'flex', flexDirection: 'row', width: '50%', height:'100%', paddingLeft:'20px'}}>
                     <SupplyAndDemandInput style={{display: 'flex',
                         flexDirection:'row', float:'left', width:'50%'}}
                                           onClick={() => this.isSupplyEqualToDemand()}/>
+                </div>
+                    <div style={{display: 'flex', flexDirection: 'row'}}>
+                        <GraphComponent/>
+                    </div>
                 </div>
             </div>
     );
