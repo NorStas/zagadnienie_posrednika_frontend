@@ -11,30 +11,32 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         //podaż
-        int [] sellers = {30,30};
+        int [] sellers = {15,12,13,20};
         //jednorazowe koszty zakupu
-        int [] oneTimeFee = {12,12};
+        int [] oneTimeFee = {12,12,12,12};
         //koszty transportu
-        int [][] transportCosts = {{1,1,1,1},{8,8,8,8}};
+        int [][] transportCosts = {{3,5},{12,6},{10,5},{4,13}};
         // popyt
-        int [] buyers = {20,1,9,30};
+        int [] buyers = {30,30};
         //ceny sprzedazy
-        int [] sellingPrice = {31,5,2,38};
+        int [] sellingPrice = {30,30};
         //zysk
         int [][] income = new int[oneTimeFee.length][sellingPrice.length];
         Map<Integer, Integer> map = new HashMap<>();
+        // suma
+        int sum = 0;
         for(int i = 0; i<oneTimeFee.length; i++)
         {
             for(int j = 0; j<sellingPrice.length; j++)
             {
                 income[i][j] = sellingPrice[j] - oneTimeFee[i] - transportCosts[i][j];
-                System.out.println(income[i][j]);
+                System.out.println("numery tablicy " + i +" " + j + "  ile wyszlo " + income[i][j]);
 
-                if(i == 0) {
-                    map.put(j, income[i][j]);
+                if(j == 0) {
+                    map.put((i+j)*2, income[i][j]);
                 }
-                else{
-                    map.put(j+sellingPrice.length,income[i][j]);
+                if(j == 1){
+                    map.put(i*2+1,income[i][j]);
                 }
             }
         }
@@ -54,48 +56,42 @@ public class Main {
                 int k =sortedMap.keySet().stream().findFirst().get();
                 sortedMap.remove(k);
                 System.out.println("po usunieciu; "+ sortedMap);
-                    if (k <= 3 && sellers[0] >= 0) {
-                       if(buyers[k]>0)
+                    if (buyers[k%2] >= sellers[k/2]) {
+                       if(sellers[k/2]>0)
                        {
-                           if(sellers[0]-buyers[k]>0)
-                           {
-                               grandFinale[0][k] =  buyers[k];
-                               sellers[0] -= buyers[k];
-                               buyers[k] -= sellers[0];
-                           }
-                           else
-                           {
-                               grandFinale[0][k] = sellers[0];
-                               grandFinale[1][k] = buyers[k] - sellers[0];
-                               sellers[1] -= sellers[0];
-                               sellers[0] = 0;
-                               buyers[k] = 0;
-                           }
+                               grandFinale[k/2][k%2] =  sellers[k/2];
+                               buyers[k%2] -= sellers[k/2];
+                               sellers[k/2] = 0;
                        }
-                        System.out.println("1 "+ grandFinale[0][k]);
-                    }
-            if (k > 3 && sellers[1] > 0){
-                if(buyers[k-4]>0)
-                {
-                    if(sellers[1] - buyers[k-4]>=0)
-                    {
-                        grandFinale[1][k-4] = buyers[k-4];
-                        sellers[1] -= buyers[k-4];
-                        buyers[k-4] -= sellers[1];
                     }
                     else
                     {
-                        grandFinale[1][k-4] = sellers[1];
-                        grandFinale[0][k-4] = buyers[k-4] - sellers[1];
-                        sellers[0] -= sellers[1];
-                        sellers[1] = 0;
-                        buyers[k-4] = 0;
+                        if(buyers[k%2]>0)
+                        {
+                            grandFinale[k/2][k%2] = buyers[k%2];
+                            sellers[k/2] -= buyers[k%2];
+                            buyers[k%2] = 0;
+                        }
                     }
-                }
-                System.out.println("2 "+ grandFinale[1][k-4]);
+
+        }
+        for(int i = 0;i<income.length;i++)
+        {
+            for (int j = 0; j<income[i].length;j++)
+            {
+                sum = sum + income[i][j]*grandFinale[i][j];
             }
         }
-        System.out.println(grandFinale[0][0] + "\t" + grandFinale[0][1] + "\t" +grandFinale[0][2] + "\t" + grandFinale[0][3] );
-        System.out.println(grandFinale[1][0] + "\t" + grandFinale[1][1] + "\t" +grandFinale[1][2] + "\t" + grandFinale[1][3] );
+
+        System.out.println(grandFinale[0][0] +"\t" + grandFinale[0][1] +"\t" );
+        System.out.println(grandFinale[1][0] +"\t" + grandFinale[1][1] +"\t" );
+        System.out.println(grandFinale[2][0] +"\t" + grandFinale[2][1] +"\t" );
+        System.out.println(grandFinale[3][0] +"\t" + grandFinale[3][1] +"\t" );
+        System.out.println("INCOME");
+        System.out.println(income[0][0] +"\t" + income[0][1] +"\t" );
+        System.out.println(income[1][0] +"\t" + income[1][1] +"\t" );
+        System.out.println(income[2][0] +"\t" + income[2][1] +"\t" );
+        System.out.println(income[3][0] +"\t" + income[3][1] +"\t" );
+        System.out.println("suma rowna sie: "+sum);
     }
 }
