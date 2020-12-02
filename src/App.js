@@ -39,7 +39,7 @@ class App extends React.Component {
                         flexDirection:'row', float:'left', width:'50%'}}
                                           onClick={() => this.isSupplyEqualToDemand()}/>
                 </div>
-                    <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'black', width: '100%'}}>
+                    <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
                         <GraphComponent/>
                     </div>
                 </div>
