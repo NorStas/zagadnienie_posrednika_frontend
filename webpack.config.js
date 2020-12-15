@@ -1,3 +1,5 @@
+import * as webpack from "webpack";
+
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const path = require( 'path' );
 module.exports = {
@@ -29,6 +31,12 @@ module.exports = {
                 test: /\.jsx?$/,
                 loader: 'babel-loader'
             },
+
+            new webpack.DefinePlugin({
+                'process.env': {
+                    serverUrl: JSON.stringify('http://localhost:3030')
+                }
+            })
         ]
     },
     plugins: [

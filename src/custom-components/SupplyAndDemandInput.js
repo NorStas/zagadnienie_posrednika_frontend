@@ -2,6 +2,9 @@ import React from "react";
 import {Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
+import {Process as process} from "node/process";
+
 
 export default class SupplyAndDemandInput extends React.Component {
     constructor(props) {
@@ -20,13 +23,22 @@ export default class SupplyAndDemandInput extends React.Component {
             sup3rec1cost: "",
             sup3rec2cost: "",
             sup4rec1cost: "",
-            sup4rec2cost: ""
+            sup4rec2cost: "",
+            response: {}
         }
     }
 
     INPUT_PLACEHOLDER = "Value";
     COST_PLACEHOLDER = "cost";
 
+    calculate() {
+        const data = JSON.stringify(this.state);
+        axios.post(`${process.env.serverUrl}/middleman}`,{data})
+            .then(res => {
+                const response = res.data;
+                this.setState({response});
+            })
+    }
 
     render() {
         return (
@@ -115,6 +127,7 @@ export default class SupplyAndDemandInput extends React.Component {
                             this.setState({supp4rec2cost: event.target.value})}/>
                     </Col>
                 </Form.Row>
+                <Button onClick={() => this.calculate()}>Submit</Button>
             </Form>
         )
     };

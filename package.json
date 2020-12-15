@@ -13,9 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
+    "javascript-lp-solver": "^0.4.24",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
