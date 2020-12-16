@@ -2,9 +2,9 @@ import React from 'react';
 import {Navbar} from "react-bootstrap";
 import CustomAlert from "./custom-components/CustomAlert";
 import GraphComponent from "./custom-components/GraphComponent";
-import Button from "react-bootstrap/Button";
 import SupplyAndDemandInput from "./custom-components/SupplyAndDemandInput";
 import axios from "axios";
+import LinearInput from "./custom-components/LinearInput";
 
 
 class App extends React.Component {
@@ -14,9 +14,16 @@ class App extends React.Component {
         this.state = {
             parametersFilled: false,
             supplyEqualToDemand: false,
-            supplier1: "",
-            middlemanResponse: {},
-            linearResponse: {}
+            middlemanCalculated: false,
+            linearCalculated: false,
+            middlemanResponse: {
+                key: [],
+                value: 0
+            },
+            linearResponse: {
+                key: [],
+                value: 0
+            }
         };
         this.calculateMiddleman = this.calculateMiddleman.bind(this);
         this.calculateLinear = this.calculateLinear.bind(this);
@@ -25,19 +32,17 @@ class App extends React.Component {
 
     calculateMiddleman(data) {
         const header = {  'crossdomain': true};
-        const json = JSON.stringify(data);
-        axios.post(`http://localhost:3030/middleman`,{json}, {header})
+        axios.post(`http://localhost:3030/middleman`,{data}, {header})
             .then(res => {
                 const responseData = res.data;
-                this.setState({middlemanResponse: responseData});
+                this.setState({middlemanResponse: responseData, middlemanCalculated: true});
                 console.log(this.state);
             })
     }
 
     calculateLinear(data) {
         const header = {  'crossdomain': true};
-        const json = JSON.stringify(data);
-        axios.post(`http://localhost:3030/linear`,{json}, {header})
+        axios.post(`http://localhost:3030/linear`,{data}, {header})
             .then(res => {
                 const responseData = res.data;
                 this.setState({linearResponse: responseData});
@@ -70,14 +75,16 @@ class App extends React.Component {
                             flexDirection: 'row', float: 'left', width: '50%'
                         }} calculateFunction={(e) => this.calculateMiddleman(e)}/>
                         <p style={{fontSize: '30px', color: 'black'}}> Linear data</p>
-                        <SupplyAndDemandInput style={{
+                        <LinearInput style={{
                             display: 'flex',
                             flexDirection: 'row', float: 'left', width: '50%'
                         }} calculateFunction={(e) => this.calculateLinear(e)}/>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-                        <GraphComponent cost={this.state.middlemanResponse.value}
-                        paths={this.state.middlemanResponse.key}/>
+                    <div style={{display: 'flex', flexDirection: 'row', width: '100%', marginLeft: '20px'}}>
+                        {this.state.middlemanResponse.key.length > 7 && this.state.middlemanCalculated &&
+                        <GraphComponent cost={this.state.middlemanResponse.value} paths={this.state.middlemanResponse.key}/> }
+                        {this.state.linearResponse.key.length > 7 && this.state.linearCalculated &&
+                        <GraphComponent cost={this.state.linearResponse.value} paths={this.state.linearResponse.key}/> }
                     </div>
                 </div>
             </div>

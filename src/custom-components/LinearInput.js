@@ -3,7 +3,7 @@ import {Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-export default class SupplyAndDemandInput extends React.Component {
+export default class LinearInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,6 +27,8 @@ export default class SupplyAndDemandInput extends React.Component {
             recipient2fee: 0,
             supplier3fee: 0,
             supplier4fee: 0,
+            min: 0,
+            max: 0,
             response: {}
         };
         this.isSupplyEqualToDemand = this.isSupplyEqualToDemand.bind(this);
@@ -87,27 +89,27 @@ export default class SupplyAndDemandInput extends React.Component {
                             this.setState({supplier1fee: event.target.value})}/>
                     </Col>
                 </Form.Row>
-            <Form.Row>
-                <Col>
-                    <Form.Label>Supplier 2</Form.Label>
-                </Col>
+                <Form.Row>
+                    <Col>
+                        <Form.Label>Supplier 2</Form.Label>
+                    </Col>
                     <Col style={{width: '20%'}}>
                         <Form.Control placeholder={this.INPUT_PLACEHOLDER} onChange={event =>
                             this.setState({supplier2: event.target.value})}/>
                     </Col>
-                <Col>
-                    <Form.Control type='text' placeholder={this.COST_PLACEHOLDER} onChange={event =>
-                        this.setState({sup2rec1cost: event.target.value})}/>
-                </Col>
-                <Col>
-                    <Form.Control type='text' placeholder={this.COST_PLACEHOLDER} onChange={event =>
-                        this.setState({sup2rec2cost: event.target.value})}/>
-                </Col>
-                <Col>
-                    <Form.Control type='text' style={{backgroundColor: 'lightSkyBlue'}}
-                                  placeholder={"fee"} onChange={event =>
-                        this.setState({supplier2fee: event.target.value})}/>
-                </Col>
+                    <Col>
+                        <Form.Control type='text' placeholder={this.COST_PLACEHOLDER} onChange={event =>
+                            this.setState({sup2rec1cost: event.target.value})}/>
+                    </Col>
+                    <Col>
+                        <Form.Control type='text' placeholder={this.COST_PLACEHOLDER} onChange={event =>
+                            this.setState({sup2rec2cost: event.target.value})}/>
+                    </Col>
+                    <Col>
+                        <Form.Control type='text' style={{backgroundColor: 'lightSkyBlue'}}
+                                      placeholder={"fee"} onChange={event =>
+                            this.setState({supplier2fee: event.target.value})}/>
+                    </Col>
                 </Form.Row>
                 <Form.Row>
                     <Col>
@@ -164,11 +166,24 @@ export default class SupplyAndDemandInput extends React.Component {
                     </Col>
                     <Col>
                         <Form.Control  type='text' style={{backgroundColor: 'lightSkyBlue'}}
-                                      placeholder={"fee"} onChange={event =>
+                                       placeholder={"fee"} onChange={event =>
                             this.setState({recipient2fee: event.target.value})}/>
                     </Col>
                     <Col>
                     </Col>
+                </Form.Row>
+                <Form.Row style={{marginTop: '10px', marginBottom: '10px'}}>
+                <Col>
+                    <Form.Control type='text' style={{backgroundColor: 'beige'}}
+                                  placeholder={"min"} onChange={event =>
+                        this.setState({min: event.target.value})}/>
+                </Col>
+                <Col>
+                    <Form.Control  type='text' style={{backgroundColor: 'beige'}}
+                                   placeholder={"max"} onChange={event =>
+                        this.setState({max: event.target.value})}/>
+                </Col>
+
                 </Form.Row>
                 {this.isSupplyEqualToDemand() &&
                 <Button style={{backgroundColor: "red"}} onClick={() => calculateFunction({supplier1: this.state.supplier1,
@@ -190,7 +205,9 @@ export default class SupplyAndDemandInput extends React.Component {
                     recipient1fee: this.state.recipient1fee,
                     recipient2fee: this.state.recipient2fee,
                     supplier3fee: this.state.supplier3fee,
-                    supplier4fee: this.state.supplier4fee})}>Calculate</Button> }
+                    supplier4fee: this.state.supplier4fee,
+                    min: this.state.min,
+                max: this.state.max})}>Calculate</Button> }
             </Form>
         )
     };
