@@ -45,7 +45,7 @@ class App extends React.Component {
         axios.post(`http://localhost:3030/linear`,{data}, {header})
             .then(res => {
                 const responseData = res.data;
-                this.setState({linearResponse: responseData});
+                this.setState({linearResponse: responseData, linearCalculated: true});
                 console.log(this.state);
             })
     }
@@ -80,7 +80,7 @@ class App extends React.Component {
                             flexDirection: 'row', float: 'left', width: '50%'
                         }} calculateFunction={(e) => this.calculateLinear(e)}/>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'row', width: '100%', marginLeft: '20px'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '20px'}}>
                         {this.state.middlemanResponse.key.length > 7 && this.state.middlemanCalculated &&
                         <GraphComponent cost={this.state.middlemanResponse.value} paths={this.state.middlemanResponse.key}/> }
                         {this.state.linearResponse.key.length > 7 && this.state.linearCalculated &&

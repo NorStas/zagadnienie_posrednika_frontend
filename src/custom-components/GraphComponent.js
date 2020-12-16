@@ -10,7 +10,7 @@ export default class GraphComponent extends React.Component {
         console.log(this.props);
         const {cost, paths} = this.props;
         return (
-            <div>
+            <div style={{marginBottom: '20px'}}>
                 <p style={{fontSize: '30px', color: 'black'}}> Result</p>
                 <p style={{fontSize: '30px', color: 'black'}}> Cost: {cost}</p>
                 <div>
